@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
+import {Route,Switch} from 'react-router-dom'
 
-
-import SearchBar from '../containers/search_bar'
-import WeatherList from '../containers/weather_list'
+import WeatherPage from './weatherpage';
+import Blog from './blog'
 
 export default class App extends Component {
   render() {
     return (
       <div>
-        <SearchBar />
-        <WeatherList />
+        <Switch>
+          <Route exact path="/" component={Blog} />
+          <Route path="/weather" component={WeatherPage} />
+        </Switch>
       </div>
     );
   }

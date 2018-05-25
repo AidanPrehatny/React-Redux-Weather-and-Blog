@@ -8,6 +8,7 @@ const BLOG_API_KEY = '?key=prehat7'
 const BLOG_ROOT_URL = 'http://reduxblog.herokuapp.com/api'
 export const FETCH_POSTS = 'FETCH_POSTS'
 
+export const LAT_LON = 'LAT_LON'
 
 export function fetchWeather(city) {
   const url = `${WEATHER_ROOT_URL}&q=${city},us`;

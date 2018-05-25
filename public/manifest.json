@@ -1,0 +1,15 @@
+{
+  "short_name": "Aidan P",
+  "name": "Aidan P Website",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "./index.html",
+  "display": "standalone",
+  "theme_color": "#af3566",
+  "background_color": "#af3566"
+}

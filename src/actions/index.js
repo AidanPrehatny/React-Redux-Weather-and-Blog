@@ -12,8 +12,7 @@ export const LAT_LON = 'LAT_LON'
 
 export function fetchWeather(city) {
   const url = `${WEATHER_ROOT_URL}&q=${city},us`;
-  const request = axios.get(url);
-
+  const request = axios.get(url)
   return {
     type: FETCH_WEATHER,
     payload: request

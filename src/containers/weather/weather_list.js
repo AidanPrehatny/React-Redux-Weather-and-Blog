@@ -1,13 +1,43 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { compose, withProps } from "recompose";
+import { withScriptjs, withGoogleMap, GoogleMap} from "react-google-maps";
 
 import Chart from '../../components/chart';
-import MyMapComponent from '../../components/weather/reactmap';
+
+
+const MyMapComponent = compose(
+  withProps({
+    googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyBRHJVl9WCfo1P4_a5Kqx0yYCEsLF0btB8",
+    loadingElement: <div style={{ height: `100%` }} />,
+    containerElement: <div style={{ height: `200px`, width: `250px` }} />,
+    mapElement: <div style={{ height: `100%` }} />,
+  }),
+  withScriptjs,
+  withGoogleMap
+)((props) => {
+
+  return (
+    <GoogleMap
+      defaultZoom={12}
+      defaultCenter={{
+        lat: props.lat,
+        lng: props.lon
+      }}
+      >
+      </GoogleMap>
+    )
+  }
+)
+
 
 class WeatherList extends Component {
 
-  renderWeather(cityData) {
-    const name = cityData ? cityData.city.name : null
+  state ={
+    searchedCities: ['something']
+  }
+
+  renderWeather(cityData, index) {
     const temps = cityData ? cityData.list.map(weather => weather.main.temp) : null
     const pressure = cityData ? cityData.list.map(weather => weather.main.pressure) : null
     const humidity = cityData ? cityData.list.map(weather => weather.main.humidity) : null
@@ -15,18 +45,16 @@ class WeatherList extends Component {
     const lat = cityData ? cityData.city.coord.lat : null
     console.log(cityData)
 
+
     return (
-      lon ?
-        <tr key={name}>
+      lon
+      ?
+      <tr key={index}>
         <td>
           <MyMapComponent
             isMarkerShown={false}
             lat={lat}
             lon={lon}
-            googleMapURL="https://maps.googleapis.com/maps/api/js?key="
-            loadingElement={<div style={{ height: `100%` }} />}
-            containerElement={<div style={{ height: `200px`, width: `250px` }} />}
-            mapElement={<div style={{ height: `100%` }} />}
           />
         </td>
         <td>
@@ -47,7 +75,7 @@ class WeatherList extends Component {
 
   render() {
 
-
+    console.log( this.props.weather)
     return (
       <table className="table table-hover">
         <thead>
@@ -67,7 +95,7 @@ class WeatherList extends Component {
           </tr>
         </thead>
         <tbody>
-         {this.props.weather.map(this.renderWeather)}
+          {this.props.weather.map(this.renderWeather)}
         </tbody>
       </table>
     )

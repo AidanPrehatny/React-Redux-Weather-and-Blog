@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchWeather } from '../../actions/index'
 
-
 class SearchBar extends Component {
 
   constructor(props){
@@ -13,8 +12,10 @@ class SearchBar extends Component {
   }
 
   state = {
-    term: ''
+    term: '',
+    savedPlaces: ['something']
   }
+
 
   onInputChange(event) {
     this.setState({
@@ -24,11 +25,18 @@ class SearchBar extends Component {
 
   onFormSubmit(event) {
     event.preventDefault();
-
-    // Fetch weather data
-    this.props.fetchWeather(this.state.term);
-    this.setState({ term: '' })
+    if (this.state.savedPlaces.some(place => place === this.state.term)) {
+      alert("This city has already been typed")
+     } else {
+    this.setState({
+      savedPlaces: [...this.state.savedPlaces, this.state.term]
+    })
+    this.props.fetchWeather(this.state.term)
+    this.setState({
+      term: ''
+    })
   }
+}
 
   render() {
     const { term } = this.state
@@ -37,26 +45,26 @@ class SearchBar extends Component {
         className="input-group"
         onSubmit={this.onFormSubmit}
         >
-        <input
-          placeholder="Get a 5 day forecast in your favorite cities!"
-          className="form-control"
-          value={term}
-          onChange={this.onInputChange}
-        />
-        <span className='input-group-btn'>
-          <button
-            type="submit"
-            className="btn btn-secondary">
-            Submit
-          </button>
-        </span>
-      </form>
-    )
+          <input
+            placeholder="Get a 5 day forecast in your favorite cities!"
+            className="form-control"
+            value={term}
+            onChange={this.onInputChange}
+          />
+          <span className='input-group-btn'>
+            <button
+              type="submit"
+              className="btn btn-secondary">
+              Submit
+            </button>
+          </span>
+        </form>
+      )
+    }
   }
-}
 
-function mapDispatchToProps (dispatch) {
-  return bindActionCreators({ fetchWeather }, dispatch)
-}
+  function mapDispatchToProps (dispatch) {
+    return bindActionCreators({ fetchWeather }, dispatch)
+  }
 
-export default connect(null, mapDispatchToProps)(SearchBar)
+  export default connect(null, mapDispatchToProps)(SearchBar)

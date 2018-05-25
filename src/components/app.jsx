@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Route,Switch, NavLink } from 'react-router-dom';
+import { Route,Switch } from 'react-router-dom';
+import { Navbar, Button } from 'react-bootstrap'
+import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap'
 
 import WeatherPage from './weather/weatherpage';
 import Blog from './blog/blog';
@@ -9,31 +11,32 @@ export default class App extends Component {
     return (
       <div className="container">
         <header>
-          <nav className="navbar navbar-expand-lg navbar-light bg-light">
-           <div className="collapse navbar-collapse" id="navbarNav">
-              <NavLink
+          <Navbar className="navbar navbar-expand-lg navbar-light bg-light">
+            <div className="collapse navbar-collapse" id="navbarNav">
+              <LinkContainer
                 to="/weather"
-                className="nav-item"
                 activeClassName='active'
                 >
-                Weather
-              </NavLink>
-              <NavLink
-                to="/"
-                exact={true}
-                className="nav-item"
-                activeClassName='active'
-                >
-                Blog
-              </NavLink>
-            </div>
-          </nav>
-        </header>
-        <Switch>
-          <Route exact path="/" component={Blog} />
-          <Route path="/weather" component={WeatherPage} />
-        </Switch>
-      </div>
-    );
-  }
-}
+                  <Button>
+                    Weather
+                  </Button>
+                </LinkContainer>
+                <IndexLinkContainer
+                  to="/"
+                  activeClassName='active'
+                  >
+                    <Button>
+                      Blog
+                    </Button>
+                  </IndexLinkContainer>
+                </div>
+              </Navbar>
+            </header>
+            <Switch>
+              <Route exact path="/" component={Blog} />
+              <Route path="/weather" component={WeatherPage} />
+            </Switch>
+          </div>
+        );
+      }
+    }

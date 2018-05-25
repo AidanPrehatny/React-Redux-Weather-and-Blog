@@ -1,4 +1,8 @@
-@import "./Custom";
 @import "~bootstrap/scss/bootstrap";
 @import "./components/blog/blog";
 @import "./components/weather/weather";
+
+.active {
+  color: black !important;
+  font-weight: 700 !important;
+}

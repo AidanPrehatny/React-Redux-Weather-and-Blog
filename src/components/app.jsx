@@ -4,7 +4,9 @@ import { Navbar, Button } from 'react-bootstrap'
 import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap'
 
 import WeatherPage from './weather/weatherpage';
-import Blog from './blog/blog';
+import PostsIndex from '../containers/blog/posts_container';
+import PostsNew from './blog/posts_new'
+import Home from './home/home'
 
 export default class App extends Component {
   render() {
@@ -13,30 +15,41 @@ export default class App extends Component {
         <header>
           <Navbar className="navbar navbar-expand-lg navbar-light bg-light">
             <div className="collapse navbar-collapse" id="navbarNav">
-              <LinkContainer
-                to="/weather"
+              <IndexLinkContainer
+                to="/"
                 activeClassName='active'
                 >
                   <Button>
-                    Weather
+                    Home
                   </Button>
-                </LinkContainer>
-                <IndexLinkContainer
-                  to="/"
+                </IndexLinkContainer>
+                <LinkContainer
+                  to="/posts"
                   activeClassName='active'
                   >
                     <Button>
                       Blog
                     </Button>
-                  </IndexLinkContainer>
-                </div>
-              </Navbar>
-            </header>
-            <Switch>
-              <Route exact path="/" component={Blog} />
-              <Route path="/weather" component={WeatherPage} />
-            </Switch>
-          </div>
-        );
+                  </LinkContainer>
+                  <LinkContainer
+                    to="/weather"
+                    activeClassName='active'
+                    >
+                      <Button>
+                        Weather
+                      </Button>
+                    </LinkContainer>
+                  </div>
+                </Navbar>
+              </header>
+              <Switch>
+                <Route exact path="/" component={Home} />
+                <Route path="/weather" component={WeatherPage} />
+                <PostsIndex>
+                  <Route path="/posts/new" component={PostsNew} />
+                </PostsIndex>
+              </Switch>
+            </div>
+          );
+        }
       }
-    }

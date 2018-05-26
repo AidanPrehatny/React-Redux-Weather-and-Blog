@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { fetchWeather } from '../../actions/index'
 
 class SearchBar extends Component {
@@ -27,16 +26,16 @@ class SearchBar extends Component {
     event.preventDefault();
     if (this.state.savedPlaces.some(place => place === this.state.term)) {
       alert("This city has already been typed")
-     } else {
-    this.setState({
-      savedPlaces: [...this.state.savedPlaces, this.state.term]
-    })
-    this.props.fetchWeather(this.state.term)
-    this.setState({
-      term: ''
-    })
+    } else {
+      this.setState({
+        savedPlaces: [...this.state.savedPlaces, this.state.term]
+      })
+      this.props.fetchWeather(this.state.term)
+      this.setState({
+        term: ''
+      })
+    }
   }
-}
 
   render() {
     const { term } = this.state
@@ -63,8 +62,10 @@ class SearchBar extends Component {
     }
   }
 
-  function mapDispatchToProps (dispatch) {
-    return bindActionCreators({ fetchWeather }, dispatch)
-  }
+  // function mapDispatchToProps (dispatch) {
+  //   return bindActionCreators({ fetchWeather }, dispatch)
+  // }
 
-  export default connect(null, mapDispatchToProps)(SearchBar)
+  // fetchWeather in connect ES6 shortcut to this function
+
+  export default connect(null, { fetchWeather })(SearchBar)

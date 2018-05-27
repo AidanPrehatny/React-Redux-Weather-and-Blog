@@ -5,6 +5,9 @@ import WeatherPage from './weather/weatherpage';
 import PostsIndex from '../containers/blog/posts_container';
 import Home from './home/home'
 
+import PostsNew from './blog/posts_new'
+import PostsShow from './blog/posts_show'
+
 export default class App extends Component {
   render() {
     return (
@@ -37,7 +40,11 @@ export default class App extends Component {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/weather" component={WeatherPage} />
-          <Route path="/posts" component={PostsIndex} />
+          <Route exact path="/posts" component={PostsIndex} />
+          <Switch>
+            <Route exact path="/posts/new" component={PostsNew} />
+            <Route exact path="/posts/:id" component={PostsShow} />
+          </Switch>
         </Switch>
       </div>
     );

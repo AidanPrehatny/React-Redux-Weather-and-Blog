@@ -8,6 +8,7 @@ const BLOG_API_KEY = '?key=prehot18';
 const BLOG_ROOT_URL = 'http://reduxblog.herokuapp.com/api';
 export const FETCH_POSTS = 'FETCH_POSTS';
 export const CREATE_POST = 'CREATE_POST';
+export const FETCH_POST = 'FETCH_POST';
 
 export const LAT_LON = 'LAT_LON';
 
@@ -21,7 +22,7 @@ export function fetchWeather(city) {
 };
 
 export function fetchPosts() {
-  const request = axios.get(`${BLOG_ROOT_URL}/posts${BLOG_API_KEY}`)
+  const request = axios.get(`${BLOG_ROOT_URL}/posts${BLOG_API_KEY}`);
 
   return {
     type: FETCH_POSTS,
@@ -35,6 +36,15 @@ export function createPost(props) {
 
   return {
     type: CREATE_POST,
+    payload: request
+  }
+}
+
+export function fetchPost(id) {
+  const request = axios.get(`${BLOG_ROOT_URL}/posts/${id}${BLOG_API_KEY}`);
+
+  return {
+    type: FETCH_POST,
     payload: request
   }
 }

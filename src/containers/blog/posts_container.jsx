@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { LinkContainer } from 'react-router-bootstrap';
-import { Button } from 'react-bootstrap';
+import { Route, NavLink } from 'react-router-dom';
 
 import { fetchPosts } from '../../actions/index'
-
+import PostsNew from '../../components/blog/posts_new'
 
 class PostsIndex extends Component {
   componentWillMount() {
@@ -14,22 +13,16 @@ class PostsIndex extends Component {
     return (
       <div>
         <h1>List of Blog Posts</h1>
-        <LinkContainer
-          exact={true}
+        <NavLink
           to="/posts/new"
           activeClassName='active'
           >
-            <Button>
-              New Post
-            </Button>
-          </LinkContainer>
-          <div>
-
-          </div>
+          <button style={{margin: '15px 0'}} className="btn btn-primary">New Post</button>
+          </NavLink>
+          <Route exact path="/posts/new" component={PostsNew} />
         </div>
       );
     }
   }
-
 
   export default connect(null, { fetchPosts })(PostsIndex);

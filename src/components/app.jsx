@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-import { Route,Switch } from 'react-router-dom';
-import { Navbar, Button } from 'react-bootstrap'
-import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap'
+import { Route,Switch, NavLink} from 'react-router-dom';
 
 import WeatherPage from './weather/weatherpage';
 import PostsIndex from '../containers/blog/posts_container';
-import PostsNew from './blog/posts_new'
 import Home from './home/home'
 
 export default class App extends Component {
@@ -13,43 +10,36 @@ export default class App extends Component {
     return (
       <div className="container">
         <header>
-          <Navbar className="navbar navbar-expand-lg navbar-light bg-light">
+          <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <div className="collapse navbar-collapse" id="navbarNav">
-              <IndexLinkContainer
+              <NavLink
+                exact={true}
                 to="/"
                 activeClassName='active'
-                >
-                  <Button>
-                    Home
-                  </Button>
-                </IndexLinkContainer>
-                <LinkContainer
-                  to="/posts"
-                  activeClassName='active'
-                  >
-                    <Button>
-                      Blog
-                    </Button>
-                  </LinkContainer>
-                  <LinkContainer
-                    to="/weather"
-                    activeClassName='active'
-                    >
-                      <Button>
-                        Weather
-                      </Button>
-                    </LinkContainer>
-                  </div>
-                </Navbar>
-              </header>
-              <Switch>
-                <Route exact path="/" component={Home} />
-                <Route path="/weather" component={WeatherPage} />
-                <PostsIndex>
-                  <Route path="/posts/new" component={PostsNew} />
-                </PostsIndex>
-              </Switch>
+                className="nav-link"
+                > Home
+              </NavLink>
+              <NavLink
+                to="/posts"
+                activeClassName='active'
+                className="nav-link"
+                > Blog
+              </NavLink>
+              <NavLink
+                to="/weather"
+                activeClassName='active'
+                className="nav-link"
+                > Weather
+              </NavLink>
             </div>
-          );
-        }
-      }
+          </nav>
+        </header>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route path="/weather" component={WeatherPage} />
+          <Route path="/posts" component={PostsIndex} />
+        </Switch>
+      </div>
+    );
+  }
+}

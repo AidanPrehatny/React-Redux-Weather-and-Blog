@@ -1,33 +1,36 @@
-import React, { Component } from 'react';
-import { reduxForm } from 'redux-form';
+import React from 'react';
+import { reduxForm, Field } from 'redux-form';
+import { connect } from 'react-redux';
 
-class PostsNew extends Component {
-  render() {
-    const { handleSubmit } = this.props
-    return (
-      <form>
-        <h3>Create A New Post</h3>
+import { createPost } from '../../actions/index';
 
-        <div className="form-group">
-          <label>Title</label>
-          <input type="text" className="form-control" />
-        </div>
-        <div className="form-group">
-          <label>Categories</label>
-          <input type="text" className="form-control" />
-        </div>
-        <div className="form-group">
-          <label>Content</label>
-          <textarea className="form-control" />
-        </div>
 
-        <button type="submit" className="btn btn-primary">Submit</button>
-      </form>
-    );
-  }
+const renderField = ({ input, label, type, meta: { touched, error, warning } }) => (
+  <div className="form-group">
+    <label>{label}</label>
+    <div>
+      <input className="form-control" {...input} placeholder={label} type={type}/>
+    </div>
+  </div>
+)
+
+const PostsNew = (props) => {
+  const { handleSubmit, pristine, reset, submitting } = props
+
+  return (
+    <form onSubmit={handleSubmit(props.createPost)} >
+      <Field name="title" type="text" component={renderField} label="Title"/>
+      <Field name="categories" type="text" component={renderField} label="Categories"/>
+      <Field name="content" type="text" component={renderField} label="Content"/>
+      <div>
+        <button type="submit" disabled={submitting} className="btn btn-primary">Submit</button>
+        <button type="button" disabled={pristine || submitting} onClick={reset} className="btn btn-secondary">Clear Values</button>
+      </div>
+    </form>
+  )
 }
 
-export default reduxForm({
-  form: 'PostsNewForm',
-  fields: ['title', 'categories', 'content']
-})(PostsNew);
+
+export default connect(null, { createPost })(reduxForm({
+  form: 'PostsNewForm'
+})(PostsNew));

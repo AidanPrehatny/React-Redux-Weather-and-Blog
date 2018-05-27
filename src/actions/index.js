@@ -1,14 +1,15 @@
 import axios from 'axios';
 
 const WEATHER_API_KEY = 'a9970cc48b5382dbd85c873513e7014f';
-const WEATHER_ROOT_URL =`http://api.openweathermap.org/data/2.5/forecast?&APPID=${WEATHER_API_KEY}`
+const WEATHER_ROOT_URL =`http://api.openweathermap.org/data/2.5/forecast?&APPID=${WEATHER_API_KEY}`;
 export const FETCH_WEATHER = 'FETCH_WEATHER';
 
-const BLOG_API_KEY = '?key=prehat7'
-const BLOG_ROOT_URL = 'http://reduxblog.herokuapp.com/api'
-export const FETCH_POSTS = 'FETCH_POSTS'
+const BLOG_API_KEY = '?key=prehot18';
+const BLOG_ROOT_URL = 'http://reduxblog.herokuapp.com/api';
+export const FETCH_POSTS = 'FETCH_POSTS';
+export const CREATE_POST = 'CREATE_POST';
 
-export const LAT_LON = 'LAT_LON'
+export const LAT_LON = 'LAT_LON';
 
 export function fetchWeather(city) {
   const url = `${WEATHER_ROOT_URL}&q=${city},us`;
@@ -26,4 +27,14 @@ export function fetchPosts() {
     type: FETCH_POSTS,
     payload: request
   };
+}
+
+export function createPost(props) {
+  console.log(props)
+  const request = axios.post(`${BLOG_ROOT_URL}/posts${BLOG_API_KEY}`, props);
+
+  return {
+    type: CREATE_POST,
+    payload: request
+  }
 }

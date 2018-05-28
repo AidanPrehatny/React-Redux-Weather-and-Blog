@@ -14,7 +14,7 @@ export default class App extends Component {
       <div className="container">
         <header>
           <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <div className="collapse navbar-collapse" id="navbarNav">
+            <div className="navbar" id="navbarNav">
               <NavLink
                 exact={true}
                 to="/"

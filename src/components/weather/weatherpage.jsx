@@ -1,16 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-import SearchBar from '../../containers/weather/search_bar'
-import WeatherList from '../../containers/weather/weather_list'
+import SearchBar from '../../containers/weather/search_bar';
+import WeatherList from '../../containers/weather/weather_list';
 
 
-export default class WeatherPage extends Component {
-  render() {
-    return (
-      <div>
-        <SearchBar />
-        <WeatherList />
-      </div>
-    );
-  }
-}
+const WeatherPage = () => (
+  <div>
+    <SearchBar />
+    <WeatherList />
+  </div>
+);
+
+export default WeatherPage;
